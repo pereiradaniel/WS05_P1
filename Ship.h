@@ -6,7 +6,7 @@
 namespace sdds
 {
 	const double	MIN_STD_POWER = 90.111;		// The minimum power of a ship, acc'g to the regulation.
-	const double	MAX_STD_POWER = 99.999;	// The maximum power of a ship acc'g to the regulation.
+	const double	MAX_STD_POWER = 99.999;		// The maximum power of a ship acc'g to the regulation.
 	const int		MAX_NUM_ENGINES = 10;		// The maximum number of engines a ship can have.
 
 	class Ship

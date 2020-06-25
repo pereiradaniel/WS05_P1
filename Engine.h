@@ -4,7 +4,7 @@
 
 namespace sdds
 {
-		const int	TYPE_MAX_SIZE = 30;					// Max length of the type attribute in Engine class.
+	const int	TYPE_MAX_SIZE = 30;					// Max length of the type attribute in Engine class.
 	
 	class Engine
 	{
@@ -19,8 +19,6 @@ namespace sdds
 			double get() const;						// Query that returns the size of the engine.
 			void display() const;					// Query that prints to the screen the content of an object in the format [SIZE] - liters - [TYPE] <ENDL>
 	};
-
-
 }
 
 #endif

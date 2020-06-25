@@ -8,6 +8,10 @@ using namespace std;
 
 namespace sdds
 {
+	Ship::Ship()
+	{
+
+	}
 
 	Ship::Ship(const char* type, const Engine engines[], int cnt)
 	{
@@ -69,13 +73,13 @@ namespace sdds
 		// Explain in the reflection what happens if the keyword explicit is removed, and why is it necessary.
 		bool valid = true;
 		m_type[0] == '\0' && m_engCnt == 0 ? valid = false : valid = true;
-		if (m_type[0] == '\0' && m_engCnt == 0)
 		return valid;
 	}
 
 	Ship& Ship::operator+=(Engine engine)
 	{
-		if (m_engCnt < 10)
+		// Make sure the number of engines is less than max allowed:
+		if (m_engCnt < MAX_NUM_ENGINES)
 		{
 			if (m_type[0] == '\0')
 			{
