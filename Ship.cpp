@@ -8,10 +8,10 @@ using namespace std;
 
 namespace sdds
 {
-	Ship::Ship()
-	{
+	//Ship::Ship()
+	//{
 
-	}
+	//}
 
 	Ship::Ship(const char* type, const Engine engines[], int cnt)
 	{
@@ -88,7 +88,7 @@ namespace sdds
 		}
 		else
 		{
-			m_engines[m_engCnt++] = engine;
+			m_engines[m_engCnt + 1] = engine;
 		}
 		return *this;
 	}
