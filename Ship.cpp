@@ -3,7 +3,7 @@
 #include <iomanip>
 #include <cstring>
 #include "Ship.h"
-
+#include "Engine.h"
 
 using namespace std;
 
@@ -18,7 +18,8 @@ namespace sdds
 	{
 		m_type[0] = '\0';
 		m_engCnt = 0;
-		m_engines[m_engCnt];
+		// m_engines[m_engCnt];
+		Engine* m_engines = new Engine[MAX_NUM_ENGINES];
 		for (int i = 0; i < MAX_NUM_ENGINES; i++)
 		{
 			m_engines[i].initializeEngine();
@@ -28,11 +29,13 @@ namespace sdds
 	Ship::Ship(const char* type, const Engine engines[], int cnt)
 	{
 		// Validate params:
-		if (type != nullptr && strlen(type) > 0 && strlen(type) < TYPE_MAX_SIZE && engines[0].get() && cnt < 10)
+		if (type != nullptr && engines != nullptr && cnt > 0)
 		{
 			// If valid, store params in current instance:
 			strcpy(m_type, type);			// Copy string from params to current instance of m_type.
 			m_engCnt = cnt;					// Current instance of m_engCnt is set to param cnt.
+			
+			Engine* m_engines = new Engine[cnt];
 			for (int i = 0; i < cnt; i++)
 			{
 				m_engines[i].initializeEngine();
@@ -101,7 +104,8 @@ namespace sdds
 		}
 		else
 		{
-			m_engines[m_engCnt + 1] = engine;
+			int index = m_engCnt++;
+			m_engines[index] = engine;
 		}
 		return *this;
 	}
