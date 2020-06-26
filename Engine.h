@@ -13,11 +13,12 @@ namespace sdds
 			char	m_type[TYPE_MAX_SIZE + 1]; 		// The engine model type, as an array of chars of size TYPE_MAX_SIZE.
 
 		public:
-			Engine() = default;						// Default constructor.
-			~Engine() = default;					// Default destructor.
+			Engine() = default;								// Default constructor.
+			// ~Engine() = default;					// Default destructor.
 			Engine(const char* type, double size);	// Custom constructor that rx's as params: engine type, size.
 			double get() const;						// Query that returns the size of the engine.
 			void display() const;					// Query that prints to the screen the content of an object in the format [SIZE] - liters - [TYPE] <ENDL>
+			void initializeEngine();
 	};
 }
 

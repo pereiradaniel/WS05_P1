@@ -4,19 +4,30 @@
 #include <cstring>
 #include "Ship.h"
 
+
 using namespace std;
 
 namespace sdds
 {
-	//Ship::Ship()
-	//{
+	Ship::Ship()
+	{
+		initializeShip();
+	}
 
-	//}
+	void Ship::initializeShip()
+	{
+		m_type[0] = '\0';
+		m_engCnt = 0;
+		for (int i = 0; i < m_engCnt; i++)
+		{
+			m_engines[i].initializeEngine();
+		}
+	}
 
 	Ship::Ship(const char* type, const Engine engines[], int cnt)
 	{
 		// Validate params:
-		if (type != nullptr && engines != nullptr && cnt > 0)
+		if (type != nullptr && strlen(type) > 0 && strlen(type) < TYPE_MAX_SIZE && engines[0].get() && cnt < 10)
 		{
 			// If valid, store params in current instance:
 			strcpy(m_type, type);			// Copy string from params to current instance of m_type.
@@ -30,9 +41,7 @@ namespace sdds
 		}
 		else 
 		{
-			// If params are invalid, set to a default empty state.
-			m_type[0] = '\0';				// Default state for m_type = '\0'.
-			m_engCnt = 0;					// Default state for m_engCnt = 0.
+			initializeShip();
 		}
 	}
 

@@ -16,14 +16,15 @@ namespace sdds
 		int		m_engCnt;						// The number of engines that are actually installed on the ship.
 
 	public:
-		Ship() = default;
+		Ship();
 		// ~Ship() = default;
 		Ship(const char* type, const Engine arr[], int size);
-		operator bool() const;
+		explicit operator bool() const;
 		bool operator<(double power) const;
 		double calculatePower() const;
 		void display() const;
 		Ship& operator+=(Engine engine);
+		void initializeShip();
 		
 	};
 	bool operator<(double power, const Ship& theShip);

@@ -8,15 +8,27 @@ using namespace std;
 
 namespace sdds
 {
+	Engine::Engine()
+	{
+		initializeEngine();
+	}
+
+	void Engine::initializeEngine()
+	{
+		m_type[0] = 0;
+		m_size = 0;
+	}
+
 	Engine::Engine(const char* type, double size)
 	{
 		// Validate explicit params:
-		if (size > 0 && type[0] != '\0')
-		{
+		//if (size > 0 && type[0] != '\0')
+		//{
+			initializeEngine();
 			// Assign params to engine:
 			strcpy(m_type, type);
 			m_size = size;
-		}
+		//}
 	}
 	
 	double Engine::get() const
@@ -33,4 +45,5 @@ namespace sdds
 			cout << fixed << setprecision(2) << m_size << " liters - " << m_type << endl;
 		}
 	}
+
 }
