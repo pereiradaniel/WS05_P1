@@ -3,126 +3,116 @@
 #include <iomanip>
 #include <cstring>
 #include "Ship.h"
-#include "Engine.h"
 
 using namespace std;
 
-namespace sdds
-{
+namespace sdds {
 	Ship::Ship()
-	{
-		initializeShip();
-	}
-
-	void Ship::initializeShip()
 	{
 		m_type[0] = '\0';
 		m_engCnt = 0;
-		// m_engines[m_engCnt];
-		Engine* m_engines = new Engine[MAX_NUM_ENGINES];
-		for (int i = 0; i < MAX_NUM_ENGINES; i++)
-		{
-			m_engines[i].initializeEngine();
-		}
 	}
 
 	Ship::Ship(const char* type, const Engine engines[], int cnt)
 	{
-		// Validate params:
 		if (type != nullptr && engines != nullptr && cnt > 0)
 		{
-			// If valid, store params in current instance:
-			strcpy(m_type, type);			// Copy string from params to current instance of m_type.
-			m_engCnt = cnt;					// Current instance of m_engCnt is set to param cnt.
-			
-			Engine* m_engines = new Engine[cnt];
-			for (int i = 0; i < cnt; i++)
-			{
-				m_engines[i].initializeEngine();
-			}
-			// Iterate through current instance's m_engines[i] and assign engines[i].
+			// Set data members for current object:
+			strcpy(m_type, type);
+			m_engCnt = cnt;
+
+			// Assign engines to the current object:
 			for (int i = 0; i < cnt; i++)
 			{
 				m_engines[i] = engines[i];
 			}
 		}
-		else 
-		{
-			initializeShip();
-		}
-	}
-
-	double Ship::calculatePower() const
-	{
-		double total_power = 0;
-		for (int i = 0; i < m_engCnt; i++)
-		{
-			total_power += m_engines[i].get() * 5;
-		}
-		return total_power;
-	}
-
-	void Ship::display() const
-	{
-		if (*this)
-		{
-			cout << "No available data" << endl;
-		}
 		else
 		{
-			cout << m_type << "-";
-			cout.setf(ios::fixed);
-			cout.precision(2);
-			cout.width(6);
-			cout << calculatePower() << endl;
-			cout.unsetf(ios::fixed);
-			cout.precision(6);
-			for (int i = 0; i < m_engCnt; i++)
-			{
-				m_engines[i].display();
-			}
+			// Set default state:
+			m_type[0] = '\0';
+			m_engCnt = 0;
 		}
 	}
 
 	Ship::operator bool() const
 	{
-		// Explain in the reflection what happens if the keyword explicit is removed, and why is it necessary.
 		bool valid = true;
-		m_type[0] == '\0' && m_engCnt == 0 ? valid = false : valid = true;
-		return valid;
-	}
 
-	Ship& Ship::operator+=(Engine engine)
-	{
-		// Make sure the number of engines is less than max allowed:
-		if (m_engCnt < MAX_NUM_ENGINES)
+		if (m_type[0] == '\0' && m_engCnt == 0)
 		{
-			if (m_type[0] == '\0')
-			{
-				cout << "The object is not valid! Engine cannot be added!" << endl;		// Output error message.
-			}
+			valid = false;
 		}
-		else
-		{
-			int index = m_engCnt++;
-			m_engines[index] = engine;
-		}
-		return *this;
+
+		return valid;
 	}
 
 	bool Ship::operator<(double power) const
 	{
-		bool result = false;
-		calculatePower() < power ? result = true : result = false;
-		return result;
+		bool under_power = false;
+
+		if (calculatePower() < power) {
+			under_power = true;
+		}
+
+		return under_power;
+
+	}
+
+	double Ship::calculatePower() const {
+		double total_power = 0;
+
+		// Iterate through Ship's engines and add to total_power:
+		for (int i = 0; i < m_engCnt; i++) {
+			total_power += (double)((double)m_engines[i].get() * (double)5);
+		}
+
+		return total_power;
+	}
+
+
+	void Ship::display() const {
+		if (*this) {
+			// Display engines:
+			cout << m_type << " - " << calculatePower() << endl;
+			for (int i = 0; i < m_engCnt; i++) {
+				m_engines[i].display();
+			}
+		}
+		else
+		{
+			// Display message if no engine:
+			cout << "No available data" << endl;
+		}
+	}
+
+	Ship& Ship::operator+=(Engine engine) {
+		// Check if engine count less than 10:
+		if (m_engCnt < MAX_NUM_ENGINES) {
+			// Check if Engine is valid:
+			if (m_type[0] == '\0')
+			{
+				cout << "The object is not valid! Engine cannot be added!" << endl;
+			}
+			else {
+				// If engine is valid and engine count less than maximum number of engines, add engine:
+				m_engines[m_engCnt++] = engine;
+			}
+		}
+
+		return *this;
 	}
 
 	bool operator<(double power, const Ship& ship)
 	{
-		bool result = false;
-		ship.calculatePower() > power ? result = false : result = true;
-		return result;
+		bool under_powered = false;
 
+		if (ship.calculatePower() > power) {
+			under_powered = true;
+		}
+
+		return under_powered;
 	}
+
 
 }

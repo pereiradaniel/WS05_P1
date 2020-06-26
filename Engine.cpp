@@ -6,17 +6,12 @@
 
 using namespace std;
 
-namespace sdds
-{
+namespace sdds {
 	Engine::Engine()
 	{
-		initializeEngine();
-	}
-
-	void Engine::initializeEngine()
-	{
+		// Default state:
 		m_type[0] = '\0';
-		m_size = 0;
+		m_size = 0.0;
 	}
 
 	Engine::Engine(const char* type, double size)
@@ -24,30 +19,21 @@ namespace sdds
 		// Validate explicit params:
 		if (size > 0 && type[0] != '\0')
 		{
-			initializeEngine();
 			// Assign params to engine:
 			strcpy(m_type, type);
 			m_size = size;
 		}
-		else
-		{
-			initializeEngine();
-		}
 	}
-	
+
 	double Engine::get() const
 	{
-		return m_size;			// Return size of engine m_size.
+		// Return engine size:
+		return m_size;
 	}
 
 	void Engine::display() const
 	{
-		// Detect if Engine members are valid:
-		if (m_size > 0 && m_type[0] != '\0')
-		{
-			// If valid, display m_size at precision 2, m_type:
-			cout << fixed << setprecision(2) << m_size << " liters - " << m_type << endl;
-		}
+		cout <<  m_size << " liters - " << m_type << endl;		
 	}
 
 }
