@@ -18,7 +18,8 @@ namespace sdds
 	{
 		m_type[0] = '\0';
 		m_engCnt = 0;
-		for (int i = 0; i < m_engCnt; i++)
+		m_engines[m_engCnt];
+		for (int i = 0; i < MAX_NUM_ENGINES; i++)
 		{
 			m_engines[i].initializeEngine();
 		}
@@ -32,7 +33,10 @@ namespace sdds
 			// If valid, store params in current instance:
 			strcpy(m_type, type);			// Copy string from params to current instance of m_type.
 			m_engCnt = cnt;					// Current instance of m_engCnt is set to param cnt.
-			
+			for (int i = 0; i < cnt; i++)
+			{
+				m_engines[i].initializeEngine();
+			}
 			// Iterate through current instance's m_engines[i] and assign engines[i].
 			for (int i = 0; i < cnt; i++)
 			{
